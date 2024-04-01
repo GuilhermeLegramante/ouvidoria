@@ -137,11 +137,11 @@ class DefaultForm
             ->required()
             ->live()
             ->options([
-                1 => 'Membros da Direção',
-                2 => 'Empregados',
-                3 => 'Terceirizados',
-                4 => 'Prepostos',
-                5 => 'Mais de uma categoria anterior ou outros',
+                'management' => 'Membros da Direção',
+                'employees' => 'Empregados',
+                'outsourced' => 'Terceirizados',
+                'agents' => 'Prepostos',
+                'others' => 'Mais de uma categoria anterior ou outros',
             ])
             ->required();
     }
