@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Forms\Components\Select;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -10,6 +11,7 @@ use Filament\Pages\Auth\Register;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets;
 use Filament\Widgets\StatsOverviewWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -24,12 +26,24 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        Select::configureUsing(function (Select $select): void {
+            $select
+                ->preload()
+                ->searchable();
+        });
+
+        TextColumn::configureUsing(function (TextColumn $textColumn): void {
+            $textColumn
+                ->sortable();
+        });
+        
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
-            ->registration(Register::class)
+            ->profile()
+            // ->registration(Register::class)
             ->colors([
                 'primary' => Color::Amber,
             ])

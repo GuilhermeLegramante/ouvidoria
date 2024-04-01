@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\ManifestationTypeResource\Pages;
+use App\Filament\Resources\ManifestationTypeResource\RelationManagers;
+use App\Models\ManifestationType;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -13,51 +13,34 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Hash;
 
-class UserResource extends Resource
+class ManifestationTypeResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = ManifestationType::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'usuário';
+    protected static ?string $modelLabel = 'tipo de manifestação';
 
-    protected static ?string $pluralModelLabel = 'usuários';
+    protected static ?string $pluralModelLabel = 'tipos de manifestação';
 
     protected static ?string $navigationGroup = 'Parâmetros';
 
-    protected static ?string $slug = 'usuario';
-
+    protected static ?string $slug = 'tipos-de-manifestacao';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                Forms\Components\TextInput::make('name')
                     ->label(__('fields.name'))
-                    ->unique(ignoreRecord: true)
-                    ->required(),
-                TextInput::make('email')
-                    ->label(__('fields.email'))
-                    ->email(),
-                TextInput::make('password')
-                    ->label(__('fields.password'))
-                    ->password()
-                    ->revealable()
+                    ->afterStateUpdated(function (TextInput $component, string $state) {
+                        $component->state(mb_strtoupper($state));
+                    })
                     ->required()
-                    ->rule('min:4')
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                    ->same('passwordConfirmation')
-                    ->validationAttribute('senha'),
-                TextInput::make('passwordConfirmation')
-                    ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
-                    ->password()
-                    ->required()
-                    ->revealable()
-                    ->dehydrated(false),
+                    ->maxLength(255),
             ]);
     }
 
@@ -67,9 +50,6 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('fields.name'))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label(__('fields.email'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('fields.created_at'))
@@ -99,7 +79,7 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageUsers::route('/'),
+            'index' => Pages\ManageManifestationTypes::route('/'),
         ];
     }
 }
