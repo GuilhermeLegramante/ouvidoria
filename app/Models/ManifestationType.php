@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ManifestationType extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
+
 }
