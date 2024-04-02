@@ -24,8 +24,6 @@ use Livewire\WithFileUploads;
 
 class FormSelection extends SimplePage
 {
-    use WithFileUploads;
-
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.form-mock';
@@ -72,8 +70,11 @@ class FormSelection extends SimplePage
 
                 Group::make([
                     Select::make('manifestation')
+                        ->preload(false)
+                        ->searchable(false)
                         ->label('Tipo de manifestação que deseja realizar')
                         ->live()
+                        ->debounce(100)
                         ->options([
                             1 => 'Denúncia (probidade empresarial)',
                             2 => 'Denúncia (assédio ou violência contra mulheres)',

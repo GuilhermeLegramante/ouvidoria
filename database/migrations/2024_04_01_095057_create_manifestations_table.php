@@ -26,7 +26,7 @@ return new class extends Migration
                 ->nullable()
                 ->comment('Direção, Empregados, Terceirizados, Prepostos, Mais de uma categoria ou outros');
             $table->string('description');
-            $table->foreignId('request_reason_id')->constrained('request_reasons')->restrictOnDelete();
+            $table->foreignId('request_reason_id')->nullable()->constrained('request_reasons')->restrictOnDelete();
             $table->timestamps();
         });
     }

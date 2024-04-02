@@ -27,7 +27,7 @@ Livewire::setUpdateRoute(function ($handle) {
  */
 Route::redirect('/ouvidoria/public/login', '/ouvidoria/public/login')->name('login');
 
-Route::get('/', FormSelection::class);
+Route::get('/', FormSelection::class)->name('form-selection');
 Route::get('/denuncia/probidade-empresarial', ProbityForm::class)->name('probity-form');
 Route::get('/denuncia/assedio-ou-violencia-contra-mulheres', ProbityForm::class)->name('harassment-form');
 Route::get('/elogio-reclamacao-ou-sugestao', PraiseForm::class)->name('praise-form');

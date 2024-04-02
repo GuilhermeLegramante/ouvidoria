@@ -2,6 +2,7 @@
 
 namespace App\Filament\Forms;
 
+use App\Models\RequestReason;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -46,20 +47,9 @@ class DefaultForm
             TextInput::make('email')
                 ->label('E-mail')
                 ->required(),
-
-            Radio::make('reason')
-                ->label('Motivo da solicitação')
-                ->options([
-                    1 => 'Confirmação da existência de tratamento de meus dados pessoais',
-                    2 => 'Acesso aos meus dados pessoais',
-                    3 => 'Correção dos meus dados, incompletos, inexatos ou desatualizados',
-                    4 => 'Anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados em desconformidade com a lei',
-                    5 => 'Portabilidade dos dados a outro fornecedor de serviço ou produto, mediante requisição expressa, de acordo com a regulamentação da autoridade nacional, observados os segredos comercial e industrial',
-                    6 => 'Eliminação dos dados pessoais tratados com o consentimento, exceto nas hipóteses previstas no art. 16 da Lei.',
-                    7 => 'Informação das entidades públicas e privadas com as quais o controlador realizou uso compartilhado de dados dos quais sou titular',
-                    8 => 'Informação sobre a possibilidade de não fornecer consentimento e sobre as consequências da negativa',
-                    9 => 'Revogação do consentimento, nos termos do § 5º do art. 8º da Lei 13.709',
-                ]),
+            Select::make('request_reason_id')
+                ->label(__('fields.request_reason'))
+                ->options(RequestReason::all()->pluck('description', 'id')),
             self::manifestationTextAreaField(),
             self::filesField(),
         ];
@@ -68,7 +58,7 @@ class DefaultForm
     public static function form($title): array
     {
         return [
-            Select::make('type')
+            Select::make('comunication_type')
                 ->label("Você optou por fazer uma {$title}. Escolha o tipo de comunicação que pretende realizar:")
                 ->options([
                     'anonymous' => 'Anônima – você não será identificado e não poderá acompanhar a apuração da denúncia.',
@@ -82,7 +72,7 @@ class DefaultForm
                     ->getChildComponentContainer()
                     ->fill()),
             Grid::make(1)
-                ->schema(fn (Get $get): array => match ($get('type')) {
+                ->schema(fn (Get $get): array => match ($get('comunication_type')) {
                     'anonymous' => DefaultForm::manifestationFields(),
                     'confidential' => DefaultForm::fullFields(),
                     'public' => DefaultForm::fullFields(),
@@ -125,14 +115,14 @@ class DefaultForm
 
     public static function manifestationTextAreaField(): Textarea
     {
-        return Textarea::make('manifestation')
+        return Textarea::make('description')
             ->required()
             ->label('Manifestação');
     }
 
     public static function manifestationTypeSelectField(): Select
     {
-        return Select::make('manifestationType')
+        return Select::make('reported')
             ->label('Denúncia contra atos praticados por:')
             ->required()
             ->live()

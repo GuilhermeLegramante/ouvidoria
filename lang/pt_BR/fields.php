@@ -93,4 +93,5 @@ return [
     'closing_date' => 'Data do Encerramento',
     'protocol_number' => 'N° do Protocolo',
     'description' => 'Descrição',
+    'request_reason' => 'Motivo da Solicitação',
 ];

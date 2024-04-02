@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -26,17 +27,22 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        Select::configureUsing(function (Select $select): void {
-            $select
-                ->preload()
-                ->searchable();
-        });
+        // Select::configureUsing(function (Select $select): void {
+        //     $select
+        //         ->preload()
+        //         ->searchable();
+        // });
 
         TextColumn::configureUsing(function (TextColumn $textColumn): void {
             $textColumn
                 ->sortable();
         });
-        
+
+        TextInput::configureUsing(function (TextInput $textInput): void {
+            $textInput
+                ->live();
+        });
+
         return $panel
             ->default()
             ->id('admin')
