@@ -27,6 +27,7 @@ class ManifestationRepository
                 'reported' => isset($data['reported']) ? $data['reported'] : null,
                 'description' => $data['description'],
                 'comunication_type' => isset($data['comunication_type']) ? $data['comunication_type'] : 'public',
+                'request_reason_id' => $manifestationType == 4 ? $data['request_reason_id'] : null,
             ]);
 
 

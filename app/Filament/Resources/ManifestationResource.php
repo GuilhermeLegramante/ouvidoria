@@ -14,7 +14,9 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Infolists\Components\Fieldset;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -35,6 +37,7 @@ class ManifestationResource extends Resource
     protected static ?string $pluralModelLabel = 'manifestações';
 
     protected static ?string $slug = 'manifestacoes';
+
 
     public static function form(Form $form): Form
     {
@@ -109,6 +112,39 @@ class ManifestationResource extends Resource
             ->columns(3);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        $data = [
+            Fieldset::make('Informações Gerais')
+                ->schema([
+                    TextEntry::make('protocol_number')->label(__('fields.protocol_number')),
+                    TextEntry::make('status.name')->label(__('fields.status')),
+                    TextEntry::make('type.name')->label(__('fields.manifestation_type')),
+                    TextEntry::make('reported')->label('Atos praticados por')
+                        ->formatStateUsing(fn (string $state): string => __("reported.{$state}")),
+                    TextEntry::make('description')->label(__('fields.description')),
+                    TextEntry::make('requestReason.description')->label(__('fields.request_reason')),
+                ])
+        ];
+
+        if ($infolist->record->comunication_type !== 'anonymous') {
+            array_push(
+                $data,
+                Fieldset::make('Informações Pessoais')
+                    ->schema([
+                        TextEntry::make('name')->label(__('fields.name')),
+                        TextEntry::make('cpf')->label(__('fields.cpf')),
+                        TextEntry::make('address')->label(__('fields.address')),
+                        TextEntry::make('phone')->label(__('fields.phone')),
+                        TextEntry::make('email')->label(__('fields.email')),
+                    ])
+            );
+        }
+
+        return $infolist
+            ->schema($data);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -148,6 +184,8 @@ class ManifestationResource extends Resource
         return [
             'index' => Pages\ManageManifestations::route('/'),
             'view' => Pages\ViewManifestation::route('/{record}'),
+            'edit' => Pages\EditManifestation::route('/{record}/editar'),
+
         ];
     }
 

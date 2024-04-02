@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -29,6 +30,7 @@ class Manifestation extends Model
 
     protected $casts = [
         'documents' => 'array',
+        'movements' => 'array',
     ];
 
     public function documents(): HasMany
@@ -41,18 +43,18 @@ class Manifestation extends Model
         return $this->hasMany(ManifestationMovement::class);
     }
 
-    public function requestReason(): HasOne
+    public function requestReason(): BelongsTo
     {
-        return $this->hasOne(RequestReason::class);
+        return $this->belongsTo(RequestReason::class, 'request_reason_id');
     }
 
-    public function status(): HasOne
+    public function status(): BelongsTo
     {
-        return $this->hasOne(ManifestationStatus::class);
+        return $this->belongsTo(ManifestationStatus::class, 'manifestation_status_id');
     }
 
-    public function type(): HasOne
+    public function type(): BelongsTo
     {
-        return $this->hasOne(ManifestationType::class);
+        return $this->belongsTo(ManifestationType::class, 'manifestation_type_id');
     }
 }

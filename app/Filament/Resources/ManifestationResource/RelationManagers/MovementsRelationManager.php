@@ -14,6 +14,14 @@ class MovementsRelationManager extends RelationManager
 {
     protected static string $relationship = 'movements';
 
+    protected static ?string $title = 'Movimentos';
+
+    protected static ?string $label = 'Movimento';
+
+    protected static ?string $pluralLabel = 'Movimentos';
+
+    protected static bool $isLazy = false;
+
     public function form(Form $form): Form
     {
         return $form
@@ -46,5 +54,11 @@ class MovementsRelationManager extends RelationManager
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public function isReadOnly(): bool
+    {
+        return false;
+        //return !Str::of($this->pageClass)->contains('MyViewPageName'); //only on the ViewPage
     }
 }
