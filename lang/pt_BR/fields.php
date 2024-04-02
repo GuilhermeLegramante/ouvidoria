@@ -94,4 +94,5 @@ return [
     'protocol_number' => 'N° do Protocolo',
     'description' => 'Descrição',
     'request_reason' => 'Motivo da Solicitação',
+    'manifestation_type' => 'Tipo de Manifestação',
 ];

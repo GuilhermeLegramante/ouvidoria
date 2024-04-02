@@ -2,14 +2,14 @@
 
 return [
 
-    'title' => 'Mostrar :label',
+    'title' => 'Detalhes :label',
 
-    'breadcrumb' => 'Mostrar',
+    'breadcrumb' => 'Detalhes',
 
     'content' => [
 
         'tab' => [
-            'label' => 'Mostrar',
+            'label' => 'Detalhes',
         ],
 
     ],

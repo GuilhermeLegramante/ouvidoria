@@ -2,14 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\DefaultForm;
 use App\Filament\Resources\ManifestationResource\Pages;
 use App\Filament\Resources\ManifestationResource\RelationManagers;
 use App\Models\Manifestation;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,23 +38,99 @@ class ManifestationResource extends Resource
 
     public static function form(Form $form): Form
     {
-        dd($form->fill()->model->id);
-
         return $form
-            ->schema(DefaultForm::form());
+            ->schema([
+                Section::make('Dados da Manifestação')
+                    ->schema([
+                        TextInput::make('protocol_number')
+                            ->label(__('fields.protocol_number')),
+                        Select::make('manifestation_status_id')
+                            ->label(__('fields.status'))
+                            ->relationship(name: 'status', titleAttribute: 'name'),
+                        Select::make('manifestation_type_id')
+                            ->label(__('fields.manifestation_type'))
+                            ->relationship(name: 'type', titleAttribute: 'name'),
+                        Select::make('comunication_type')
+                            ->label("Tipo de Comunicação")
+                            ->options([
+                                'anonymous' => 'Anônima',
+                                'confidential' => 'Sigilosa',
+                                'public' => 'Pública',
+                            ]),
+                        TextInput::make('name')
+                            ->label('Nome')
+                            ->visible(fn (Get $get): bool => $get('comunication_type') != 'anonymous'),
+                        TextInput::make('cpf')
+                            ->label('CPF')
+                            ->visible(fn (Get $get): bool => $get('comunication_type') != 'anonymous'),
+                        TextInput::make('address')
+                            ->label('Endereço')
+                            ->visible(fn (Get $get): bool => $get('comunication_type') != 'anonymous'),
+                        TextInput::make('phone')
+                            ->label('Telefone')
+                            ->visible(fn (Get $get): bool => $get('comunication_type') != 'anonymous'),
+                        TextInput::make('email')
+                            ->label('E-mail')
+                            ->visible(fn (Get $get): bool => $get('comunication_type') != 'anonymous'),
+                        TextInput::make('requestReason.description')
+                            ->label('Motivo da Solicitação')
+                            ->visible(fn (Get $get): bool => $get('request_reason_id') != null),
+                        Select::make('reported')
+                            ->label('Denúncia contra atos praticados por:')
+                            ->required()
+                            ->live()
+                            ->options([
+                                'management' => 'Membros da Direção',
+                                'employees' => 'Empregados',
+                                'outsourced' => 'Terceirizados',
+                                'agents' => 'Prepostos',
+                                'others' => 'Mais de uma categoria anterior ou outros',
+                            ]),
+                        Textarea::make('description')
+                            ->required()
+                            ->label('Manifestação')
+
+                    ])->columnSpan(2),
+                Section::make()
+                    ->hidden(fn (string $operation): bool => $operation === 'create')
+                    ->schema([
+                        Group::make()
+                            ->schema([
+                                Placeholder::make('created_at')
+                                    ->label('Data de Criação')
+                                    ->content(fn (Manifestation $manifestation): ?string => $manifestation->created_at?->isoFormat('LLL')),
+
+                                Placeholder::make('updated_at')
+                                    ->label('Data de Modificação')
+                                    ->content(fn (Manifestation $manifestation): ?string => $manifestation->updated_at?->isoFormat('LLL')),
+                            ])
+                    ])->columnSpan(1)
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('protocol_number')
+                TextColumn::make('protocol_number')
                     ->label(__('fields.protocol_number'))
                     ->sortable(),
+                TextColumn::make('created_at')
+                    ->label(__('fields.created_at'))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('updated_at')
+                    ->label(__('fields.updated_at'))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -63,7 +147,14 @@ class ManifestationResource extends Resource
     {
         return [
             'index' => Pages\ManageManifestations::route('/'),
-            'view' => Pages\ViewManifestation::route('/{record}')
+            'view' => Pages\ViewManifestation::route('/{record}'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\DocumentsRelationManager::class,
         ];
     }
 

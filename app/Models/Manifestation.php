@@ -40,4 +40,14 @@ class Manifestation extends Model
     {
         return $this->hasOne(RequestReason::class);
     }
+
+    public function status(): HasOne
+    {
+        return $this->hasOne(ManifestationStatus::class);
+    }
+
+    public function type(): HasOne
+    {
+        return $this->hasOne(ManifestationType::class);
+    }
 }
