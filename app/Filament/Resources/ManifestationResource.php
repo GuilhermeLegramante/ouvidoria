@@ -155,6 +155,7 @@ class ManifestationResource extends Resource
     {
         return [
             RelationManagers\DocumentsRelationManager::class,
+            RelationManagers\MovementsRelationManager::class,
         ];
     }
 

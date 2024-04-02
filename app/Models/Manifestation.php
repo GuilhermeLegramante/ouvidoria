@@ -36,6 +36,11 @@ class Manifestation extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function movements(): HasMany
+    {
+        return $this->hasMany(ManifestationMovement::class);
+    }
+
     public function requestReason(): HasOne
     {
         return $this->hasOne(RequestReason::class);

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('manifestation_movements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('manifestation_id')->constrained('manifestations')->restrictOnDelete();
             $table->foreignId('previous_manifestation_status_id')->constrained('manifestation_statuses')->restrictOnDelete();
             $table->foreignId('current_manifestation_status_id')->constrained('manifestation_statuses')->restrictOnDelete();
             $table->string('description')->nullable();
