@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'address' => 'Endereço',
     'name' => 'Nome',
     'username' => 'Login',
     'password' => 'Senha',
@@ -95,4 +96,5 @@ return [
     'description' => 'Descrição',
     'request_reason' => 'Motivo da Solicitação',
     'manifestation_type' => 'Tipo de Manifestação',
+    'phone' => 'Telefone',
 ];

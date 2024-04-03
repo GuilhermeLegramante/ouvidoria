@@ -2,7 +2,12 @@
 
 namespace App\Filament\Resources\ManifestationResource\RelationManagers;
 
+use App\Models\Manifestation;
+use App\Models\ManifestationMovement;
+use Filament\Tables\Actions\CreateAction;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -26,8 +31,25 @@ class MovementsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('description')
+                Select::make('current_manifestation_status_id')
+                    ->hint('Novo status para a manifestação')
+                    ->label(__('fields.status'))
+                    ->preload()
                     ->required()
+                    ->relationship(name: 'currentStatus', titleAttribute: 'name')
+                    ->createOptionForm([TextInput::make('name')
+                        ->label(__('fields.name'))
+                        // ->afterStateUpdated(function (TextInput $component, string $state) {
+                        //     $component->state(mb_strtoupper($state));
+                        // })
+                        ->required()
+                        ->maxLength(255)])
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('description')
+                    ->label('Descrição')
+                    ->hint('Informe os detalhes do movimento')
+                    ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
             ]);
     }
@@ -37,13 +59,29 @@ class MovementsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
-                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('description')->label('Descrição'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make()
+                    ->using(function (array $data, string $model): ManifestationMovement {
+                        // Atualiza o status da manifestação
+                        $manifestation = Manifestation::find($this->getOwnerRecord()->id);
+
+                        $manifestation->manifestation_status_id = $data['current_manifestation_status_id'];
+
+                        $manifestation->save();
+
+                        return ManifestationMovement::create([
+                            'manifestation_id' => $manifestation->id,
+                            'previous_manifestation_status_id' => $this->getOwnerRecord()->manifestation_status_id,
+                            'current_manifestation_status_id' => $data['current_manifestation_status_id'],
+                            'description' => $data['description'],
+                            'created_at' => now()
+                        ]);
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -56,9 +94,10 @@ class MovementsRelationManager extends RelationManager
             ]);
     }
 
+
+
     public function isReadOnly(): bool
     {
         return false;
-        //return !Str::of($this->pageClass)->contains('MyViewPageName'); //only on the ViewPage
     }
 }

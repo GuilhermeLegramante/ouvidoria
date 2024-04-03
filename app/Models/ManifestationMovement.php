@@ -23,13 +23,13 @@ class ManifestationMovement extends Model
         return $this->belongsTo(Manifestation::class);
     }
 
-    public function previousStatus(): HasOne
+    public function previousStatus(): BelongsTo
     {
-        return $this->hasOne(ManifestationStatus::class);
+        return $this->belongsTo(ManifestationStatus::class);
     }
 
-    public function currentStatus(): HasOne
+    public function currentStatus(): BelongsTo
     {
-        return $this->hasOne(ManifestationStatus::class);
+        return $this->belongsTo(ManifestationStatus::class);
     }
 }
