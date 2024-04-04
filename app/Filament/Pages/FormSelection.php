@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Manifestation;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -32,6 +33,21 @@ class FormSelection extends SimplePage
 
     public ?array $data = [];
 
+    public Manifestation $manifestation;
+
+    public function mount($id = null)
+    {
+        $this->manifestation = new Manifestation();
+
+        if (isset($id)) {
+            $manifestation = Manifestation::with('status')->where('protocol_number', $id)->get()->first();
+
+            if (isset($manifestation)) {
+                $this->manifestation = $manifestation;
+            }
+        }
+    }
+
     protected function getForms(): array
     {
         return [
@@ -42,7 +58,7 @@ class FormSelection extends SimplePage
     public function form(Form $form): Form
     {
         $clientName = 'HARDSOFT SISTEMAS';
-        
+
         return $form
             ->schema([
                 Placeholder::make('documentation')
@@ -94,7 +110,7 @@ class FormSelection extends SimplePage
     {
         $data = $this->form->getState();
 
-        if ($data['manifestation'] == 1 ) {
+        if ($data['manifestation'] == 1) {
             return redirect()->route('probity-form');
         }
 
