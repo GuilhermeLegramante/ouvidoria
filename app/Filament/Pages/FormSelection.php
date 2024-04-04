@@ -41,21 +41,23 @@ class FormSelection extends SimplePage
 
     public function form(Form $form): Form
     {
+        $clientName = 'HARDSOFT SISTEMAS';
+        
         return $form
             ->schema([
                 Placeholder::make('documentation')
                     ->label('')
                     ->content(new HtmlString(
-                        '
+                        "
                         <div >
-                            <h3 class="text-justify">
-                                O canal de Ouvidoria da <strong>EMPRESA MODELO</strong> é um instrumento 
+                            <h3 class='text-justify'>
+                                O canal de Ouvidoria da <strong>" . $clientName . "</strong> é um instrumento 
                                 de integridade corporativa que faz parte do Programa de <i>Compliance</i> da empresa.
                                 Sua finalidade é estabelecer um canal de comunicação entre a empresa e a sociedade, de modo
                                 a viabilizar o aperfeiçoamento institucional e colaborar para um ambiente positivo e ético de negócios na
                                 organização e no país.
                             </h3>
-                            <h3 class="text-center">
+                            <h3 class='text-center'>
                                 <br>
                                 <i>
                                     Este serviço também recebe as manifestações previstas na Lei 12.846/2013 e Lei Estadual (RS) 15.228/2018,
@@ -65,7 +67,7 @@ class FormSelection extends SimplePage
                                 </i>
                             </h3>
                         </div>
-                        '
+                        "
                     )),
 
                 Group::make([
