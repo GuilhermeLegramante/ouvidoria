@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Manifestation;
+use App\Models\ManifestationType;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -93,12 +94,7 @@ class FormSelection extends SimplePage
                         ->label('Tipo de manifestação que deseja realizar')
                         ->live()
                         ->debounce(100)
-                        ->options([
-                            1 => 'Denúncia (probidade empresarial)',
-                            2 => 'Denúncia (assédio ou violência contra mulheres)',
-                            3 => 'Elogio, reclamação ou sugestão',
-                            4 => 'Pedido sobre proteção de dados pessoais'
-                        ])
+                        ->options(ManifestationType::all()->pluck('name', 'id'))
                         ->required()
                         ->columnSpan(6),
                 ])->columns(6),
@@ -129,7 +125,7 @@ class FormSelection extends SimplePage
 
     public function hasLogo(): bool
     {
-        return false;
+        return true;
     }
 
     public function getMaxWidth(): MaxWidth | string | null

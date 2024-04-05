@@ -21,6 +21,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -76,6 +77,10 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->brandName('Pronta Ouvidoria')
+            ->brandLogo(asset('storage/files/logo.jpeg'))
+            ->brandLogoHeight(fn () => auth()->check() ? '4rem' : '8rem')
+            ->favicon(asset('storage/files/logo.jpeg'))
             ->authMiddleware([
                 Authenticate::class,
             ]);

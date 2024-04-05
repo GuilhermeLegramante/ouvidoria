@@ -47,7 +47,7 @@ class ManifestationRepository
                 ->success()
                 ->send();
 
-            return redirect()->route("form-selection", ['id' => $manifestation->protocol_number]);
+            return redirect()->route("form-selection-with-id", ['id' => $manifestation->protocol_number]);
             
         } catch (Exception $e) {
             Notification::make()

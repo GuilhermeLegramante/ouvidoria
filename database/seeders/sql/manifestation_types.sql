@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/04/2024 às 19:21
+-- Tempo de geração: 05/04/2024 às 17:57
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.1.17
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `manifestation_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -38,11 +39,11 @@ CREATE TABLE `manifestation_types` (
 -- Despejando dados para a tabela `manifestation_types`
 --
 
-INSERT INTO `manifestation_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'DENÚNCIA (PROBIDADE EMPRESARIAL)', '2024-04-01 14:33:20', '2024-04-01 14:33:20'),
-(2, 'DENÚNCIA (ASSÉDIO OU VIOLÊNCIA CONTRA MULHERES)', '2024-04-01 14:33:31', '2024-04-01 14:33:31'),
-(3, 'ELOGIO, RECLAMAÇÃO OU SUGESTÃO', '2024-04-01 14:33:35', '2024-04-01 14:33:35'),
-(4, 'PEDIDO SOBRE PROTEÇÃO DE DADOS PESSOAIS', '2024-04-01 14:33:44', '2024-04-01 14:33:44');
+INSERT INTO `manifestation_types` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
+(1, '1', 'DENÚNCIA (PROBIDADE EMPRESARIAL)', '2024-04-01 14:33:20', '2024-04-01 14:33:20'),
+(2, '2', 'DENÚNCIA (ASSÉDIO OU VIOLÊNCIA CONTRA MULHERES)', '2024-04-01 14:33:31', '2024-04-01 14:33:31'),
+(3, '3', 'ELOGIO, RECLAMAÇÃO OU SUGESTÃO', '2024-04-01 14:33:35', '2024-04-01 14:33:35'),
+(4, '4', 'REQUISIÇÃO (LGPD – PROTEÇÃO DE DADOS)', '2024-04-01 14:33:44', '2024-04-05 15:55:44');
 
 --
 -- Índices para tabelas despejadas

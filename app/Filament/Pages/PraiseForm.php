@@ -45,7 +45,7 @@ class PraiseForm extends SimplePage
 
     public function hasLogo(): bool
     {
-        return false;
+        return true;
     }
 
     public function getMaxWidth(): MaxWidth | string | null

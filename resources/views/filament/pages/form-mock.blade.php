@@ -1,5 +1,12 @@
 <x-filament-panels::page.simple>
 
+    <style>
+        body {
+            background-image: url('img/standard-quality-control-concept-m.png');
+            background-size: 100%;
+        }
+    </style>
+
     <x-filament-panels::form wire:submit="submit">
         {{ $this->form }}
 
@@ -432,6 +439,6 @@
                 </fieldset>
             </div>
         @endif
-   
+
     @endif
 </x-filament-panels::page.simple>
