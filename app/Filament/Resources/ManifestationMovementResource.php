@@ -51,19 +51,24 @@ class ManifestationMovementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('previous_manifestation_status_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('previousStatus.description')
+                    ->label('Status Anterior')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('current_manifestation_status_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('currentStatus.description')
+                    ->label('Status Atual')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('Descrição')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('fields.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('fields.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
