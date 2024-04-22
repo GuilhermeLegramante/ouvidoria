@@ -35,6 +35,11 @@
                 href="{{ asset('storage/files/politica_integridade.pdf') }}" tag="a" size="xl">
                 POLÍTICA DE INTEGRIDADE
             </x-filament::button>
+
+            <x-filament::button wire:click="redirectToConsultation" icon="heroicon-o-document-magnifying-glass"
+                size="xl">
+                CONSULTA
+            </x-filament::button>
         </div>
 
         <x-slot name="headerEnd">

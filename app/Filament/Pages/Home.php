@@ -20,10 +20,6 @@ class Home extends SimplePage
 
     public function form(Form $form): Form
     {
-        $clientName = 'HARDSOFT SISTEMAS';
-
-        $clientEmail = 'contato@hardsoft.com';
-
         return $form
             ->schema([
                 Placeholder::make('documentation')
@@ -32,18 +28,18 @@ class Home extends SimplePage
                         "
                         <div >
                             <p class='text-justify'>
-                                A <strong>" . $clientName . "</strong> busca o mais alto nível de transparência e ética em suas atividades. Para tanto, estruturou um Programa de Integridade 
+                                A <strong>" . env('CLIENT_NAME') . "</strong> busca o mais alto nível de transparência e ética em suas atividades. Para tanto, estruturou um Programa de Integridade 
                                 Corporativa que promove valores positivos no ambiente empresarial e no relacionamento com o Poder Público.
                             </p>
                             <br>
                             <p class='text-justify'>
-                                O Programa de Compliance é conduzido pela Comitê de Integridade e Ética (CIE) da <strong>" . $clientName . "</strong>, responsável também pelas apurações 
+                                O Programa de Compliance é conduzido pela Comitê de Integridade e Ética (CIE) da <strong>" . env('CLIENT_NAME') . "</strong>, responsável também pelas apurações 
                                 internas de comunicados recebidos por meio do seu Canal de Ouvidoria. O CIE pode ser contactado, também pelo e-mail 
-                                <strong>" . $clientEmail . "</strong>.
+                                <strong>" . env('CLIENT_EMAIL') . "</strong>.
                             </p>
                             <br>
                             <p class='text-justify'>
-                                Os links abaixo são instrumentos que compõem o Programa de Compliance da <strong>" . $clientName . "</strong>, e visam a tornar público o 
+                                Os links abaixo são instrumentos que compõem o Programa de Compliance da <strong>" . env('CLIENT_NAME') . "</strong>, e visam a tornar público o 
                                 nosso compromisso com a integridade empresarial:
                             </p>
                         </div>
@@ -56,6 +52,11 @@ class Home extends SimplePage
     public function redirectToFormSelection()
     {
         return redirect()->route("form-selection");
+    }
+
+    public function redirectToConsultation()
+    {
+        return redirect()->route("consultation");
     }
 
     public function hasLogo(): bool

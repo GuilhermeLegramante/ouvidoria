@@ -58,8 +58,6 @@ class FormSelection extends SimplePage
 
     public function form(Form $form): Form
     {
-        $clientName = 'HARDSOFT SISTEMAS';
-
         return $form
             ->schema([
                 Placeholder::make('documentation')
@@ -68,7 +66,7 @@ class FormSelection extends SimplePage
                         "
                         <div >
                             <h3 class='text-justify'>
-                                O canal de Ouvidoria da <strong>" . $clientName . "</strong> é um instrumento 
+                                O canal de Ouvidoria da <strong>" . env('CLIENT_NAME') . "</strong> é um instrumento 
                                 de integridade corporativa que faz parte do Programa de <i>Compliance</i> da empresa.
                                 Sua finalidade é estabelecer um canal de comunicação entre a empresa e a sociedade, de modo
                                 a viabilizar o aperfeiçoamento institucional e colaborar para um ambiente positivo e ético de negócios na
