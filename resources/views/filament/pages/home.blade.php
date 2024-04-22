@@ -22,22 +22,22 @@
         <br>
         <div style="margin-left: 10%; margin-right: 10%;">
             <x-filament::button wire:click="redirectToFormSelection" icon="heroicon-o-chat-bubble-left-right"
-                size="xl">
+                size="md">
                 COMUNICAÇÃO
             </x-filament::button>
 
             <x-filament::button icon="heroicon-o-document-text" target="_blank"
-                href="{{ asset('storage/files/codigo_etica.pdf') }}" tag="a" size="xl">
+                href="{{ asset('storage/files/codigo_etica.pdf') }}" tag="a" size="md">
                 CÓDIGO DE ÉTICA
             </x-filament::button>
 
             <x-filament::button icon="heroicon-o-document-text" target="_blank"
-                href="{{ asset('storage/files/politica_integridade.pdf') }}" tag="a" size="xl">
+                href="{{ asset('storage/files/politica_integridade.pdf') }}" tag="a" size="md">
                 POLÍTICA DE INTEGRIDADE
             </x-filament::button>
 
             <x-filament::button wire:click="redirectToConsultation" icon="heroicon-o-document-magnifying-glass"
-                size="xl">
+                size="md">
                 CONSULTA
             </x-filament::button>
         </div>
