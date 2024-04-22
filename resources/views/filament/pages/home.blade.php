@@ -20,7 +20,8 @@
         <br>
         <hr>
         <br>
-        <div style="margin-left: 25%; margin-right: 25%;">
+        <nav
+            class="fi-tabs flex max-w-full gap-x-1 overflow-x-auto mx-auto rounded-xl bg-white p-2 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
             <x-filament::button wire:click="redirectToFormSelection" icon="heroicon-o-chat-bubble-left-right"
                 size="md">
                 COMUNICAÇÃO
@@ -40,7 +41,7 @@
                 size="md">
                 CONSULTA
             </x-filament::button>
-        </div>
+        </nav>
 
         <x-slot name="headerEnd">
             {{-- Input to select the user's ID --}}
