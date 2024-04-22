@@ -152,6 +152,9 @@ class ManifestationResource extends Resource
                 TextColumn::make('protocol_number')
                     ->label(__('fields.protocol_number'))
                     ->sortable(),
+                TextColumn::make('type.name')
+                    ->label('Tipo')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label(__('fields.created_at'))
                     ->dateTime()
