@@ -20,7 +20,7 @@
         <br>
         <hr>
         <br>
-        <div style="margin-left: 10%; margin-right: 10%;">
+        <div class="flex items-start">
             <x-filament::button wire:click="redirectToFormSelection" icon="heroicon-o-chat-bubble-left-right"
                 size="md">
                 COMUNICAÇÃO
