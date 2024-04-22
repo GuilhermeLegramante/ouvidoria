@@ -20,6 +20,7 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -167,7 +168,10 @@ class ManifestationResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->label('Tipo')
+                    ->relationship('type', 'name')
+                    ->preload(),
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
