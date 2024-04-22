@@ -51,11 +51,11 @@ class ManifestationMovementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('previousStatus.description')
+                Tables\Columns\TextColumn::make('previousStatus.name')
                     ->label('Status Anterior')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('currentStatus.description')
+                Tables\Columns\TextColumn::make('currentStatus.name')
                     ->label('Status Atual')
                     ->searchable()
                     ->sortable(),
