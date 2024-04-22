@@ -51,6 +51,10 @@ class ManifestationMovementResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('manifestation.protocol_number')
+                    ->label('Protocolo')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('previousStatus.name')
                     ->label('Status Anterior')
                     ->searchable()
