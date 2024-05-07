@@ -27,14 +27,14 @@
                 COMUNICAÇÃO
             </x-filament::button>
 
-            {{-- <x-filament::button icon="heroicon-o-document-text" target="_blank"
+            <x-filament::button icon="heroicon-o-document-text" target="_blank"
                 href="{{ asset('storage/files/codigo_etica.pdf') }}" tag="a" size="md">
                 CÓDIGO DE ÉTICA
-            </x-filament::button> --}}
+            </x-filament::button>
 
             <x-filament::button icon="heroicon-o-document-text" target="_blank"
                 href="{{ asset('storage/files/politica_integridade.pdf') }}" tag="a" size="md">
-                POLÍTICA DE COMPLIANCE E INTEGRIDADE
+                POLÍTICA DE INTEGRIDADE
             </x-filament::button>
 
             <x-filament::button wire:click="redirectToConsultation" icon="heroicon-o-document-magnifying-glass"
