@@ -9,7 +9,7 @@
             margin-top: 20px;
         }
         .image-container img {
-            margin-left: 40%;
+            margin-left: 43%;
             width: 150px; /* Definindo um tamanho pequeno */
             height: auto; /* Mantendo a proporção da imagem */
         }
