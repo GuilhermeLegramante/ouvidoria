@@ -51,7 +51,9 @@
 
         <!-- Adicionando a imagem pequena e centralizada -->
         <div class="image-container">
-            <img src="{{ asset('img/selo.jpeg') }}" alt="Imagem descritiva">
+            <a href="{{ asset('Certificado CAGE MITREN 130924 - 120925.pdf') }}" target="_blank">
+                <img src="{{ asset('img/selo.jpeg') }}" alt="Imagem descritiva">
+            </a>
         </div>
 
         <x-slot name="headerEnd">
