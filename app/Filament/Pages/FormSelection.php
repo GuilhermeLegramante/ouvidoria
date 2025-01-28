@@ -81,6 +81,7 @@ class FormSelection extends SimplePage
                                     em atendimento à LGPD.
                                 </i>
                             </h3>
+                            <br>
                             <h3 class='text-justify'>
                                Não se preocupe! Adotamos procedimentos para a salvaguarda de sua identidade e de quaisquer outros elementos que possam identificá-lo, 
                                bem como a necessidade de manutenção da informação acerca de sua identidade exclusivamente sob a guarda da ouvidoria.
