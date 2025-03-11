@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Mail\ManifestationSentMail;
 use App\Models\Document;
 use App\Models\Manifestation;
 use App\Models\ManifestationStatus;
 use Exception;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class ManifestationRepository
 {
@@ -41,6 +43,9 @@ class ManifestationRepository
                 }
             }
 
+            // Envia email para a empresa
+            Mail::to('privacidade@mitren.com.br')->send(new ManifestationSentMail());
+
             Notification::make()
                 ->title('Sucesso!')
                 ->body('Dados enviados com sucesso!')
@@ -48,7 +53,6 @@ class ManifestationRepository
                 ->send();
 
             return redirect()->route("form-selection-with-id", ['id' => $manifestation->protocol_number]);
-            
         } catch (Exception $e) {
             Notification::make()
                 ->title('Erro!')
